@@ -15,7 +15,21 @@ fn main() {
 
     let mut contents = fs::read_to_string(read_html_path).expect("Can read the file");
 
-    let input_component = Component { tag: "section" };
+    let input_component = Component {
+        tag: "section",
+        meta: Some(vec![
+Attribute{
+label: "style",
+value: "border: 1px solid black; height: 50px; width: 50px;"
+},
+Attribute{
+label: "class",
+value: "Example"
+}
+
+
+]),
+    };
 
     contents = insert_components(contents, input_component);
 
