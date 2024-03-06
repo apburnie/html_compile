@@ -46,6 +46,11 @@ pub fn build_body(component: &Component) -> String {
         Child::Text(value) => {
             markup = format!("{}", value);
         }
+        Child::ComponentVec(value) => {
+            for single in value {
+                markup = format!("{}{}", markup, build_component(single));
+            }
+        }
     }
 
     markup

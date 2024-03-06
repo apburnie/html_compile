@@ -1,5 +1,6 @@
 pub enum Child<'a> {
     Text(&'a str),
+    ComponentVec(Vec<Box<Component<'a>>>),
     NoChild,
 }
 

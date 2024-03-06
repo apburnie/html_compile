@@ -62,4 +62,42 @@ mod tests {
             "<section style=\"border: 1px solid black;\" class=\"Test\">Hello World</section>"
         );
     }
+
+    #[test]
+    fn component() {
+        let test_component = Component {
+            tag: "section",
+            meta: Some(vec![
+                Attribute {
+                    label: "style",
+                    value: "border: 1px solid black;",
+                },
+                Attribute {
+                    label: "class",
+                    value: "Test",
+                },
+            ]),
+            child: Child::ComponentVec(vec![
+                Box::new(Component {
+                    tag: "h1",
+                    meta: None,
+                    child: Child::Text("Heading of Section"),
+                }),
+                Box::new(Component {
+                    tag: "p",
+                    meta: Some(vec![Attribute {
+                        label: "style",
+                        value: "color: blue;",
+                    }]),
+                    child: Child::Text("Some interesting text"),
+                }),
+            ]),
+        };
+        let result_one = build_component(&test_component);
+
+        assert_eq!(
+            result_one,
+            "<section style=\"border: 1px solid black;\" class=\"Test\"><h1>Heading of Section</h1><p style=\"color: blue;\">Some interesting text</p></section>"
+        );
+    }
 }
