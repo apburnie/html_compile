@@ -38,10 +38,23 @@ pub fn build_start_tag(component: &Component) -> String {
     start_tag
 }
 
+pub fn build_body(component: &Component) -> String {
+    let mut markup = "".to_string();
+
+    match &component.child {
+        Child::NoChild => {}
+        Child::Text(value) => {
+            markup = format!("{}", value);
+        }
+    }
+
+    markup
+}
+
 pub fn build_component(component: &Component) -> String {
     let start_tag = build_start_tag(component);
 
-    let middle = "";
+    let middle = build_body(component);
 
     let end_tag = format!("</{}>", component.tag);
 

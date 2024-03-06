@@ -18,17 +18,16 @@ fn main() {
     let input_component = Component {
         tag: "section",
         meta: Some(vec![
-Attribute{
-label: "style",
-value: "border: 1px solid black; height: 50px; width: 50px;"
-},
-Attribute{
-label: "class",
-value: "Example"
-}
-
-
-]),
+            Attribute {
+                label: "style",
+                value: "border: 1px solid black; height: 50px; width: 50px;",
+            },
+            Attribute {
+                label: "class",
+                value: "Example",
+            },
+        ]),
+        child: Child::Text("Hello World"),
     };
 
     contents = insert_components(contents, input_component);
