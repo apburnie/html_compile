@@ -4,5 +4,9 @@ license="MIT"
 version = "0.1.0"
 edition = "2021"
 description="A Rust library for converting Rust structs into web components that can be inserted into a HTML file for the building of static websites."
+readme="README.md"
+repository="https://github.com/apburnie/html_compile"
+homepage="https://github.com/apburnie/html_compile"
+documentation="https://docs.rs/html_compile"
 
 [dependencies]
