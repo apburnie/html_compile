@@ -1,7 +1,7 @@
 use crate::component_types::*;
 
 pub fn insert_components(contents: String, component: Component) -> String {
-    const COMPONENT_PLACEHOLDER: &str = "{MANTIS_COMPONENT}";
+    const COMPONENT_PLACEHOLDER: &str = "{COMPONENT}";
 
     let component = build_component(&component);
 

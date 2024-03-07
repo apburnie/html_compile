@@ -1,11 +1,11 @@
 #[cfg(test)]
 mod tests {
-    use mantis::compile_html::*;
-    use mantis::component_types::*;
+    use html_compile::compile_html::*;
+    use html_compile::component_types::*;
 
     #[test]
     fn tag() {
-        const test_component: Component = Component {
+        let test_component: Component = Component {
             tag: "section",
             meta: None,
             child: Child::NoChild,
@@ -17,7 +17,7 @@ mod tests {
 
     #[test]
     fn attribute() {
-        let test_component = Component {
+        let test_component : Component = Component {
             tag: "section",
             meta: Some(vec![
                 Attribute {

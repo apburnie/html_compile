@@ -1,11 +1,9 @@
 use std::env;
 use std::fs;
-use std::io;
-use std::path::Path;
 
 fn main() {
-    use mantis::compile_html::*;
-    use mantis::component_types::*;
+    use html_compile::compile_html::*;
+    use html_compile::component_types::*;
 
     let args: Vec<String> = env::args().collect();
 
@@ -14,6 +12,8 @@ fn main() {
     let write_output_path = &format!("{}/index.html", &args[2]);
 
     let mut contents = fs::read_to_string(read_html_path).expect("Can read the file");
+
+    // Example Component - change this to change content inserted in the HTML file
 
     let item_list: Vec<String> = vec![1, 2, 3].iter().map(|x| format!("{}", x)).collect();
 
