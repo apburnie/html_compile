@@ -74,27 +74,16 @@ fn main() {
 ```
 
 The file `output.html` looks like the following:
-
-<!DOCTYPE html> 
-  <html lang="en">
-          <head>
-                  <meta charset="utf-8" />
-                  <meta name="viewport" content="width=device-width" />
-                  <title>Test Data</title>
-                  <meta
-                          name="description"
-                          content="Some Description"
-                          slot="head"
-                  />
-          </head>
-          <body>
-	  <section style="border: 1px solid black; padding: 10px;" class="Example"><h2>A List of Items</h2><p>The list begins after the following line</p><hr></hr><ul><li>1</li><li>2</li><li>3</li></ul></section> 
-          </body>
-  </html>
+<section style="border: 1px solid black; padding: 10px;" class="Example">
+<h2>A List of Items</h2>
+<p>The list begins after the following line</p><hr></hr><ul><li>1</li><li>2</li><li>3</li></ul>
+</section> 
  
-# Find in crates.io
+## Find in crates.io
 * https://crates.io/crates/html_compile
 
-# Find code on GitHub
+## Find code on GitHub
 * https://github.com/apburnie/html_compile
+
+Note that in the code on GitHub there is a directory `example` that provides an example application using this library.
 
