@@ -92,3 +92,9 @@ The file `output.html` looks like the following:
           </body>
   </html>
  
+# Find in crates.io
+* https://crates.io/crates/html_compile
+
+# Find code on GitHub
+* https://github.com/apburnie/html_compile
+
