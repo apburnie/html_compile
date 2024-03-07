@@ -1,7 +1,7 @@
 [package]
-name = "html_compile"
-license="MIT"
+name = "example_app"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+html_compile = { path = "../" }

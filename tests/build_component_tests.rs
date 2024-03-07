@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use html_compile::compile_html::*;
-    use html_compile::component_types::*;
+    use html_compile::compile::*;
+    use html_compile::types::*;
 
     #[test]
     fn tag() {
@@ -17,7 +17,7 @@ mod tests {
 
     #[test]
     fn attribute() {
-        let test_component : Component = Component {
+        let test_component: Component = Component {
             tag: "section",
             meta: Some(vec![
                 Attribute {

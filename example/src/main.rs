@@ -1,19 +1,16 @@
-use std::env;
 use std::fs;
 
 fn main() {
-    use html_compile::compile_html::*;
-    use html_compile::component_types::*;
+    use html_compile::compile::*;
+    use html_compile::types::*;
 
-    let args: Vec<String> = env::args().collect();
+    // Example application reads from the file input.html to get the contents and writes to file output.html
 
-    let read_html_path: &String = &format!("{}/src/index.html", &args[1]);
-
-    let write_output_path = &format!("{}/index.html", &args[2]);
+    let read_html_path = "./input.html";
 
     let mut contents = fs::read_to_string(read_html_path).expect("Can read the file");
 
-    // Example Component - change this to change content inserted in the HTML file
+    // Example Component - change this to change content inserted into the HTML file
 
     let item_list: Vec<String> = vec![1, 2, 3].iter().map(|x| format!("{}", x)).collect();
 
@@ -47,6 +44,16 @@ fn main() {
                 child: Child::Text("A List of Items"),
             }),
             Box::new(Component {
+                tag: "p",
+                meta: None,
+                child: Child::Text("The list begins after the following line"),
+            }),
+            Box::new(Component {
+                tag: "hr",
+                meta: None,
+                child: Child::NoChild,
+            }),
+            Box::new(Component {
                 tag: "ul",
                 meta: None,
                 child: Child::ComponentVec(item_components),
@@ -56,5 +63,7 @@ fn main() {
 
     contents = insert_components(contents, input_component);
 
+    // Example application writes to the file output.html
+    let write_output_path = "./output.html";
     fs::write(write_output_path, contents).expect("Unable to write to file");
 }
