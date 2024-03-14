@@ -3,3 +3,5 @@
 
 pub mod compile;
 pub mod types;
+#[macro_use]
+mod macros;
