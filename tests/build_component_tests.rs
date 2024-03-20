@@ -103,6 +103,29 @@ mod tests {
     }
 
     #[test]
+    fn void_element() {
+        let test_component = Component {
+            tag: "hr",
+            meta: None,
+            child: Child::NoChild,
+        };
+        let result_one = build_component(&test_component);
+
+        assert_eq!(result_one, "<hr />");
+    }
+
+    #[test]
+    #[should_panic]
+    fn panic_if_child_of_void() {
+        let test_component = Component {
+            tag: "hr",
+            meta: None,
+            child: Child::Text("Some Forbidden Text"),
+        };
+        build_component(&test_component);
+    }
+
+    #[test]
     fn macro_tag() {
         let test_component: Component = html!(section);
 
@@ -229,7 +252,7 @@ mod tests {
 
         assert_eq!(
                 output_html,
-                "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"></meta><meta name=\"viewport\" content=\"width=device-width\"></meta><title>Test Data</title><meta name=\"description\" content=\"some description\"></meta></head><body><section style=\"border: 1px solid black;\" class=\"Example\"><h2>A List of Items</h2><p>The list begins after the following line</p><hr></hr><ul><li>1</li><li>2</li><li>3</li></ul></section></body></html>"
+                "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width\" /><title>Test Data</title><meta name=\"description\" content=\"some description\" /></head><body><section style=\"border: 1px solid black;\" class=\"Example\"><h2>A List of Items</h2><p>The list begins after the following line</p><hr /><ul><li>1</li><li>2</li><li>3</li></ul></section></body></html>"
             );
     }
 }

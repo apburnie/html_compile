@@ -13,21 +13,37 @@ fn build_attribute(attribute_vec: &Vec<Attribute>) -> String {
     attribute_string
 }
 
-fn build_start_tag(component: &Component) -> String {
-    let mut start_tag = format!("<{}", component.tag);
+fn build_tag_with_attributes(component: &Component, end: &str) -> String {
+    let mut tag = format!("<{}", component.tag);
 
     match &component.meta {
         Some(meta) => {
             let attribute_string = build_attribute(&meta);
 
-            start_tag = format!("{}{}>", start_tag, attribute_string);
+            tag = format!("{}{}{}", tag, attribute_string, end);
         }
         None => {
-            start_tag = format!("{}>", start_tag);
+            tag = format!("{}{}", tag, end);
         }
     }
 
-    start_tag
+    tag
+}
+
+fn build_start_tag(component: &Component) -> String {
+    build_tag_with_attributes(component, ">")
+}
+
+fn build_void_tag(component: &Component) -> String {
+    match component.child {
+        Child::NoChild => build_tag_with_attributes(component, " />"),
+        _ => {
+            panic!(
+                "{} is a void element and so cannot have contents",
+                component.tag
+            );
+        }
+    }
 }
 
 fn build_body(component: &Component) -> String {
@@ -46,6 +62,16 @@ fn build_body(component: &Component) -> String {
     }
 
     markup
+}
+
+// List of void elements taken from https://html.spec.whatwg.org/#void-elements
+
+fn is_void(component: &Component) -> bool {
+    [
+        "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source",
+        "track", "wbr",
+    ]
+    .contains(&component.tag)
 }
 
 /// Builds HTML component using the provided struct `component`
@@ -94,6 +120,10 @@ fn build_body(component: &Component) -> String {
 ///     <p>Text of a Paragraph</p>
 /// </section>
 pub fn build_component(component: &Component) -> String {
+    if is_void(component) {
+        return build_void_tag(component);
+    }
+
     let start_tag = build_start_tag(component);
 
     let middle = build_body(component);
