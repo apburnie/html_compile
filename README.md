@@ -176,6 +176,31 @@ This will render in the browser as follows:
 <p>The list begins after the following line</p><hr/><ul><li>1</li><li>2</li><li>3</li></ul>
 </section> 
 
+## Inserting HTML into existing HTML string
+
+html_compile provides a macro `insert_html!` and function `insert_components` that search for the placeholder string `{COMPONENT}` and switches this for the HTML string generated.
+
+```
+insert_html!({test_contents}, div () "Hello World")
+```
+
+This searches the `String` in the variable `test_contents` for the placeholder `{COMPONENT}` and swaps the placehodler for `<div>Hello World</div>`.
+
+```
+        let test_component: Component = Component {
+            tag: "div",
+            meta: None,
+            child: Child::Text("Hello World"),
+        };
+
+        let result = insert_components(test_contents, test_component);
+
+        assert_eq!(result, "<div><div>Hello World</div></div>")
+
+```
+
+This searches the `String` in the variable `test_contents` for the placeholder `{COMPONENT}` and swaps the placehodler for `<div>Hello World</div>`.
+
 ## Find in crates.io
 * https://crates.io/crates/html_compile
 

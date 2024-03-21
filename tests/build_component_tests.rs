@@ -1,9 +1,8 @@
 #[cfg(test)]
 mod tests {
     use html_compile::compile::*;
-    use html_compile::el;
-    use html_compile::html;
     use html_compile::types::*;
+    use html_compile::{el, html, insert_html};
 
     #[test]
     fn tag() {
@@ -127,6 +126,20 @@ mod tests {
     }
 
     #[test]
+    fn insert() {
+        let test_component: Component = Component {
+            tag: "div",
+            meta: None,
+            child: Child::Text("Hello World"),
+        };
+
+        let test_contents = String::from("<div>{COMPONENT}</div>");
+
+        let result = insert_components(test_contents, test_component);
+
+        assert_eq!(result, "<div><div>Hello World</div></div>");
+    }
+    #[test]
     fn macro_tag() {
         let result = html!(section);
 
@@ -237,5 +250,14 @@ mod tests {
                 output_html,
                 "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width\" /><title>Test Data</title><meta name=\"description\" content=\"some description\" /></head><body><section style=\"border: 1px solid black;\" class=\"Example\"><h2>A List of Items</h2><p>The list begins after the following line</p><hr /><ul><li>1</li><li>2</li><li>3</li></ul></section></body></html>"
             );
+    }
+
+    #[test]
+    fn macro_insert() {
+        let test_contents = String::from("<!DOCTYPE html>{COMPONENT}");
+
+        let result = insert_html!({test_contents}, body () "Hello World");
+
+        assert_eq!(result, "<!DOCTYPE html><body>Hello World</body>")
     }
 }

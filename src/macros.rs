@@ -140,3 +140,16 @@ macro_rules! html {
         }
     }
 }
+
+// insert html into existing html string
+
+#[macro_export]
+macro_rules! insert_html {
+    ({$contents:expr}, $($x:tt)*) => {
+        {
+            let component = el!($($x)*);
+
+            insert_components($contents, component)
+        }
+    }
+}
