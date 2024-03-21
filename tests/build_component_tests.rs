@@ -139,38 +139,50 @@ mod tests {
 
         assert_eq!(result, "<div><div>Hello World</div></div>");
     }
+
     #[test]
     fn macro_tag() {
-        let result = html!(section);
+        let result = html!(div);
 
-        assert_eq!(result, "<section></section>");
+        assert_eq!(result, "<div></div>");
     }
 
     #[test]
     fn macro_attribute() {
-        let result = html!(section(style = "border: 1px solid black;" class = "Test"));
+        let result = html!(div(style = "border: 1px solid black;" class = "Test"));
 
         assert_eq!(
             result,
-            "<section style=\"border: 1px solid black;\" class=\"Test\"></section>"
+            "<div style=\"border: 1px solid black;\" class=\"Test\"></div>"
         );
     }
 
     #[test]
     fn macro_text_no_attribute() {
-        let result = html!(section () "Hello World");
+        let result = html!(div () "Hello World");
 
-        assert_eq!(result, "<section>Hello World</section>");
+        assert_eq!(result, "<div>Hello World</div>");
     }
 
     #[test]
     fn macro_text_with_attribute() {
-        let result =
-            html!(section (style = "border: 1px solid black;" class = "Test") "Hello World");
+        let result = html!(div (style = "border: 1px solid black;" class = "Hello") "Hello World");
 
         assert_eq!(
             result,
-            "<section style=\"border: 1px solid black;\" class=\"Test\">Hello World</section>"
+            "<div style=\"border: 1px solid black;\" class=\"Hello\">Hello World</div>"
+        );
+    }
+
+    #[test]
+    fn macro_text_from_variable() {
+        let example_text = "Hello World";
+
+        let result = html!(div (style = "border: 1px solid black;" class = "Hello") {example_text});
+
+        assert_eq!(
+            result,
+            "<div style=\"border: 1px solid black;\" class=\"Hello\">Hello World</div>"
         );
     }
 
@@ -187,22 +199,39 @@ mod tests {
     }
 
     #[test]
-    fn macro_interpolate_multiple_components() {
-        let heading = el!(h1 () "Heading of Section");
-        let text = el!(p (style = "color:blue;") "Some interesting text");
-
-        let result = html!(
-            section(style = "border: 1px solid black;" class = "Test")[heading][text][el!(p () "Further text")]
-        );
+    fn macro_multiple_inline_components() {
+        let result = html!(ul()[el!(li () "First Sibling")][el!(li () "Second Sibling")]);
 
         assert_eq!(
             result,
-            "<section style=\"border: 1px solid black;\" class=\"Test\"><h1>Heading of Section</h1><p style=\"color:blue;\">Some interesting text</p><p>Further text</p></section>"
+            "<ul><li>First Sibling</li><li>Second Sibling</li></ul>"
         );
     }
 
     #[test]
-    fn macro_list_components() {
+    fn macro_multiple_components_with_variables() {
+        let second_sibling = el!(li () "Second Sibling");
+        let result = html!(ul()[el!(li () "First Sibling")][second_sibling]);
+
+        assert_eq!(
+            result,
+            "<ul><li>First Sibling</li><li>Second Sibling</li></ul>"
+        );
+    }
+
+    #[test]
+    fn macro_list_components_array() {
+        let example_list = [el!(li () "First Sibling"), el!(li () "Second Sibling")];
+
+        let result = html!(ul () vec[example_list]);
+
+        assert_eq!(
+            result,
+            "<ul><li>First Sibling</li><li>Second Sibling</li></ul>"
+        );
+    }
+    #[test]
+    fn macro_list_components_vec() {
         let heading = el!(h1 () "Heading of Section");
 
         let text_list = vec![
@@ -254,10 +283,10 @@ mod tests {
 
     #[test]
     fn macro_insert() {
-        let test_contents = String::from("<!DOCTYPE html>{COMPONENT}");
+        let test_contents = String::from("<div>{COMPONENT}</div>");
 
-        let result = insert_html!({test_contents}, body () "Hello World");
+        let result = insert_html!({test_contents}, span () "Hello World");
 
-        assert_eq!(result, "<!DOCTYPE html><body>Hello World</body>")
+        assert_eq!(result, "<div><span>Hello World</span></div>");
     }
 }

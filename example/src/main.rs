@@ -3,7 +3,7 @@ use std::fs;
 fn main() {
     use html_compile::compile::*;
     use html_compile::types::*;
-    use html_compile::{el, html};
+    use html_compile::{el, insert_html};
 
     // Example application generates content and then writes to file output.html
 
@@ -56,7 +56,7 @@ fn main() {
             [el!(p() "Will create the following string of HTML that consists of an unordered list with two items")]
             [el!(code () "&lt;ul&gt;&lt;li&gt;First Sibling&lt;/li&gt;&lt;li&gt;Second Sibling&lt;/li&gt;&lt;/ul&gt;")]
             [el!(p() "In the browser this renders as")]
-            [el!(ul()[el!(li () "First Sibling")][el!(li () "Second Sibling")])][el!(p() "Each child component is surrounded by square brackets &lsqb;&rsqb; and is inputted into the macro el! which creates the component. Whitespace is used to separate different child components that will be treated as siblings.")]
+            [el!(ul()[el!(li () "First Sibling")][el!(li () "Second Sibling")])][el!(p() "Each child component is surrounded by square brackets &lsqb;&rsqb; and is inputted into the macro el! which creates the component. Different child components that will be treated as siblings.")]
     );
 
     let example_list = [el!(li () "First Sibling"), el!(li () "Second Sibling")];
@@ -71,8 +71,7 @@ fn main() {
             [el!(p() "In the browser this renders as")][el!(ul () vec[example_list])][el!(p() "Inserting the text vec before the square brackets &lsqb;&rsqb; tells the macro to expect a vector or array.")]
     );
 
-
-   // Creating the body from the sections
+    // Creating the body from the sections
     let body = [
         el!(h1 () "Guide to html_compile&rsquo;s macros"),
         el!(p () "html_compile provides macros that enable a more concise representation of HTML data. This guide explains how these macros work through examples"),
@@ -82,9 +81,10 @@ fn main() {
         section_vector_elements,
     ];
 
-    let html_string = html!(html(lang = "en")[el!(head () vec[head])][el!(body()vec[body])]);
-
-    let contents = format!("{}{}", "<!DOCTYPE html>", html_string);
+    let contents = insert_html!(
+        { String::from("<!DOCTYPE html>{COMPONENT}") },
+        html(lang = "en")[el!(head () vec[head])][el!(body()vec[body])]
+    );
 
     // Example application writes to the file output.html
     let write_output_path = "./output.html";

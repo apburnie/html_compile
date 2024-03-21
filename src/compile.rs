@@ -65,7 +65,6 @@ fn build_body(component: &Component) -> String {
 }
 
 // List of void elements taken from https://html.spec.whatwg.org/#void-elements
-
 fn is_void(component: &Component) -> bool {
     [
         "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source",
@@ -74,7 +73,7 @@ fn is_void(component: &Component) -> bool {
     .contains(&component.tag)
 }
 
-/// Builds HTML component using the provided struct `component`
+/// Generates HTML string using the provided struct `component`
 ///
 /// # Example
 ///
@@ -133,7 +132,7 @@ pub fn build_component(component: &Component) -> String {
     return format!("{}{}{}", start_tag, middle, end_tag);
 }
 
-/// Takes the provided HTML string `contents` and swaps the string `{COMPONENT}` for the HTML component built using the provided struct `component`
+/// Takes a String and swaps the placeholder text `{COMPONENT}` for the HTML String built using the provided struct `component`
 ///
 /// # Example
 ///
