@@ -1,16 +1,1 @@
-<!DOCTYPE html> 
-  <html lang="en">
-          <head>
-                  <meta charset="utf-8" />
-                  <meta name="viewport" content="width=device-width" />
-                  <title>Test Data</title>
-                  <meta
-                          name="description"
-                          content="Some Description"
-                          slot="head"
-                  />
-          </head>
-          <body>
-	  <section style="border: 1px solid black; padding: 10px;" class="Example"><h2>A List of Items</h2><p>The list begins after the following line</p><hr></hr><ul><li>1</li><li>2</li><li>3</li></ul></section> 
-          </body>
-  </html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><title>Explanation of html_compile syntax</title><meta name="description" content="Describes how html_compile syntax works" /></head><body><h1>Guide to html_compile syntax</h1><p><span>html_compile provides a macro </span><code style="color:blue;">html!(...)</code><span>that converts a series of tokens into a web component.</span></p><section><h2>Element containing text</h2><code>html!(div (style=&ldquo;color: blue;&rdquo;, class=&ldquo;Hello&rdquo;) &ldquo;Hello World&rdquo;)</code><p>Will create a div with the class &ldquo;Hello&rdquo; and containing the blue text &ldquo;Hello World&rdquo; as shown below</p><div style="color:blue;" class="Hello">Hello World</div><p><span>The first token, here </span><code>div</code><span> specifies the name of the element</span></p><p><span>The set of parentheses contains the attributes for the element. The attribute name comes before the &equals; and the attribute value after and is in double quotation marks. Different attributes are separated by whitespace. So in the example the attribute style is used to change the color to blue and the attribute class is used to assign the Hello class.</span></p><p><span>The text in double quotation marks at the end specifies the text content &ldquo;Hello World&rdquo;</span></p></section><section><h2>Element containing text in a variable</h2><code><p>let example = &ldquo;Hello World&rdquo;;</p><p>html!(div (style=&ldquo;color: blue;&rdquo;, class=&ldquo;Hello&rdquo;) {example})</p></code><p>Will create a div with the class &ldquo;Hello&rdquo; and containing the blue text &ldquo;Hello World&rdquo; as shown below</p><div style="color:blue;" class="Hello">Hello World</div><p><span>The first token, here </span><code>div</code><span> specifies the name of the element</span></p><p><span>The set of parentheses contains the attributes for the element. The attribute name comes before the &equals; and the attribute value after and is in double quotation marks. Different attributes are separated by whitespace. So in the example the attribute style is used to change the color to blue and the attribute class is used to assign the Hello class.</span></p><p><span>The text in double quotation marks at the end specifies the text content &ldquo;Hello World&rdquo;</span></p></section></body></html>

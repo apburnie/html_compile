@@ -8,7 +8,7 @@ macro_rules! html {
         }
     };
 
-($tag:tt ($( $label:tt=$value:literal ),*)) => {
+($tag:tt ($( $label:tt=$value:literal )*)) => {
     {
         let mut temp_vec = Vec::new();
         $(
@@ -28,7 +28,7 @@ macro_rules! html {
     }
     };
 
-($tag:tt ($( $label:tt=$value:literal ),*) $content:literal) => {
+($tag:tt ($( $label:tt=$value:literal )*) $content:literal) => {
     {
         let mut temp_vec = Vec::new();
         $(
@@ -48,7 +48,7 @@ macro_rules! html {
     }
     };
 
-($tag:tt ($( $label:tt=$value:literal ),*) {$content:ident}) => {
+($tag:tt ($( $label:tt=$value:literal )*) {$content:expr}) => {
     {
         let mut temp_vec = Vec::new();
         $(
@@ -68,7 +68,7 @@ macro_rules! html {
     }
     };
 
-($tag:tt ($( $label:tt=$value:literal ),*)  $([$component:expr])* ) => {
+($tag:tt ($( $label:tt=$value:literal )*)  $([$component:expr])* ) => {
     {
         let mut attribute_vec = Vec::new();
         $(
@@ -96,7 +96,7 @@ macro_rules! html {
     }
     };
 
-($tag:tt ($( $label:tt=$value:literal ),*) vec[$component:expr] ) => {
+($tag:tt ($( $label:tt=$value:literal )*) vec[$component:expr] ) => {
     {
         let mut attribute_vec = Vec::new();
         $(

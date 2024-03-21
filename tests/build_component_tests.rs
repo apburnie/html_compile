@@ -137,7 +137,7 @@ mod tests {
     #[test]
     fn macro_attribute() {
         let test_component: Component =
-            html!(section(style = "border: 1px solid black;", class = "Test"));
+            html!(section(style = "border: 1px solid black;" class = "Test"));
 
         let result_one = build_component(&test_component);
 
@@ -159,7 +159,7 @@ mod tests {
     #[test]
     fn macro_text_with_attribute() {
         let test_component =
-            html!(section (style = "border: 1px solid black;", class = "Test") "Hello World");
+            html!(section (style = "border: 1px solid black;" class = "Test") "Hello World");
         let result_one = build_component(&test_component);
 
         assert_eq!(
@@ -171,7 +171,7 @@ mod tests {
     #[test]
     fn macro_inline_component() {
         let test_component = html!(
-            section(style = "border: 1px solid black;", class = "Test")[html!( h1 () "Heading of Section")]
+            section(style = "border: 1px solid black;" class = "Test")[html!( h1 () "Heading of Section")]
         );
 
         let result_one = build_component(&test_component);
@@ -188,7 +188,7 @@ mod tests {
         let text = html!(p (style = "color:blue;") "Some interesting text");
 
         let test_component = html!(
-            section(style = "border: 1px solid black;", class = "Test")[heading][text][html!(p () "Further text")]
+            section(style = "border: 1px solid black;" class = "Test")[heading][text][html!(p () "Further text")]
         );
 
         let result_one = build_component(&test_component);
@@ -210,7 +210,7 @@ mod tests {
         ];
 
         let test_component = html!(
-            section(style = "border: 1px solid black;", class = "Test") vec[text_list]
+            section(style = "border: 1px solid black;" class = "Test") vec[text_list]
         );
 
         let result_one = build_component(&test_component);
@@ -226,9 +226,9 @@ mod tests {
         // Metadata for document
         let meta = vec![
             html!(meta(charset = "utf-8")),
-            html!(meta(name = "viewport", content = "width=device-width")),
+            html!(meta(name = "viewport" content = "width=device-width")),
             html!(title () "Test Data"),
-            html!(meta(name = "description", content = "some description")),
+            html!(meta(name = "description" content = "some description")),
         ];
 
         // Some list of items in the document
@@ -240,7 +240,7 @@ mod tests {
         let full_html = html!(
             html(lang = "en")[html!(head() vec[meta])][html!(
                 body()[html!(
-                    section(style = "border: 1px solid black;", class = "Example")[html!(h2 () "A List of Items")]
+                    section(style = "border: 1px solid black;" class = "Example")[html!(h2 () "A List of Items")]
                         [html!(p () "The list begins after the following line")][html!(hr)][html!(ul () vec[li_items])]
                 )]
             )]
