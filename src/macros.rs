@@ -104,7 +104,7 @@ macro_rules! el {
     }
     };
 
-// Specify element name, attributes and child components specified in a vector
+// Specify element name, attributes and child components specified in a vector or array
 ($tag:tt ($( $label:tt=$value:literal )*) vec[$component:expr] ) => {
     {
         let mut attribute_vec = Vec::new();
