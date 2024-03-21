@@ -21,10 +21,10 @@ fn main() {
         .collect();
 
     let head = vec![
-        html!(meta(charset = "utf-8")),
-        html!(meta(name = "viewport" content = "width=device-width")),
-        html!(title () "Explanation of html_compile syntax"),
-        html!(meta(
+        el!(meta(charset = "utf-8")),
+        el!(meta(name = "viewport" content = "width=device-width")),
+        el!(title () "Explanation of html_compile syntax"),
+        el!(meta(
             name = "description"
             content = "Describes how html_compile syntax works"
         )),

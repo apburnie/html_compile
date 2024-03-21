@@ -1,5 +1,5 @@
 #[macro_export]
-macro_rules! html {
+macro_rules! el {
     ($tag:tt) => {
         Component {
             tag: stringify!($tag),
@@ -117,4 +117,20 @@ macro_rules! html {
         }
     }
     };
+}
+
+#[macro_export]
+macro_rules! html {
+($($x:tt)*) => {
+{
+
+let component = el!($($x)*);
+build_component(&component)
+
+}
+
+
+}
+
+
 }
