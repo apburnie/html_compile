@@ -1,5 +1,8 @@
+// el creates components as rust structs
+
 #[macro_export]
 macro_rules! el {
+// Just specify element name
     ($tag:tt) => {
         Component {
             tag: stringify!($tag),
@@ -8,6 +11,7 @@ macro_rules! el {
         }
     };
 
+// Specify element name and attributes
 ($tag:tt ($( $label:tt=$value:literal )*)) => {
     {
         let mut temp_vec = Vec::new();
@@ -27,6 +31,8 @@ macro_rules! el {
         }
     }
     };
+
+// Specify element name, attributes and text
 
 ($tag:tt ($( $label:tt=$value:literal )*) $content:literal) => {
     {
@@ -48,6 +54,7 @@ macro_rules! el {
     }
     };
 
+// Specify element name, attributes and text from a variable
 ($tag:tt ($( $label:tt=$value:literal )*) {$content:expr}) => {
     {
         let mut temp_vec = Vec::new();
@@ -68,6 +75,7 @@ macro_rules! el {
     }
     };
 
+// Specify element name, attributes and at least one child component
 ($tag:tt ($( $label:tt=$value:literal )*)  $([$component:expr])* ) => {
     {
         let mut attribute_vec = Vec::new();
@@ -96,6 +104,7 @@ macro_rules! el {
     }
     };
 
+// Specify element name, attributes and child components specified in a vector
 ($tag:tt ($( $label:tt=$value:literal )*) vec[$component:expr] ) => {
     {
         let mut attribute_vec = Vec::new();
@@ -119,18 +128,15 @@ macro_rules! el {
     };
 }
 
+// html directly creates html strings
+
 #[macro_export]
 macro_rules! html {
-($($x:tt)*) => {
-{
+    ($($x:tt)*) => {
+        {
+            let component = el!($($x)*);
 
-let component = el!($($x)*);
-build_component(&component)
-
-}
-
-
-}
-
-
+            build_component(&component)
+        }
+    }
 }
