@@ -1,9 +1,9 @@
 [package]
 name = "html_compile"
 license="MIT"
-version = "0.1.1"
+version = "0.2.1"
 edition = "2021"
-description="A Rust library for converting Rust structs into web components that can be inserted into a HTML file for the building of static websites."
+description="A template engine for generating HTML strings within Rust for use with static websites"
 readme="README.md"
 repository="https://github.com/apburnie/html_compile"
 homepage="https://github.com/apburnie/html_compile"
